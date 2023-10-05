@@ -6,7 +6,7 @@ import Banner from "@/components/Banner";
 
 const Main = () => {
   return (
-    <div className="flex flex-col items-center  pb-10 pt-6">
+    <div className="min-h-screen flex flex-col items-center  pb-10 pt-6">
       <div className=" flex font-bold text-left ">
         <Link href="/main">
           <div className="text-4xl inline-flex items-center justify-center gap-1 pr-24">
@@ -19,7 +19,7 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="mt-[80px] mb-[60px] ">
+      <div className="mt-[80px] mb-64 ">
         <h2 className="font-medium text-[44px] leading-[58px]">Hello!</h2>
         <div className="pt-5">
           <h2 className="text-gray-dark text-[20px]">
