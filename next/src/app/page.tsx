@@ -10,7 +10,8 @@ export default function Home() {
     setCurrentPage("FirstPage");
   };
 
-  const handleNext = () => {
+  const handleNext = (e: any) => {
+    e.preventDefault();
     setCurrentPage("Welcome");
   };
 
