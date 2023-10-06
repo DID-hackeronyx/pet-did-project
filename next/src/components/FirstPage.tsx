@@ -1,6 +1,7 @@
 import React from "react";
 import img from "../../public/images/pet-icon.png";
 import Image from "next/image";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const FirstPage = () => {
   return (
