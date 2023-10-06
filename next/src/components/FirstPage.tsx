@@ -1,12 +1,18 @@
 import React from "react";
-import img from "../../public/images/pet-icon.png";
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
 
-const FirstPage = () => {
+const FirstPage = ({ onClick }: any) => {
   return (
-    <div className="min-h-screen text-center flex items-center justify-center">
-      <Image src={img} width={40} height={20} alt="home page img" />
+    <div
+      className="min-h-screen text-center flex items-center justify-center"
+      onClick={onClick}
+    >
+      <Image
+        src="/images/pet-icon.png"
+        width={40}
+        height={20}
+        alt="home page img"
+      />
       <div className="text-4xl font-bold ml-3">Pet's DID</div>
     </div>
   );
