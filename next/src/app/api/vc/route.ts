@@ -15,77 +15,75 @@ const ethrProvider = {
   gasSource: '',
 };
 
-// const createVcWithAdditonalParams = async (VC_SCHEMA_URL: string) => {
-//   const didEthr = new EthrDIDMethod(ethrProvider);
-
-//   const issuerDidWithKeys = await didEthr.generateFromPrivateKey(
-//     ISSUER_ES256K_PRIVATE_KEY
-//   );
-
-//   const holderDidWithKeys = await didEthr.generateFromPrivateKey(
-//     HOLDER_ES256K_PRIVATE_KEY
-//   );
-
-//   const vcDidKey = (await didEthr.create()).did;
-
-//   const credentialType = 'PROOF_OF_Dog';
-
-//   const subjectData: Object = {
-//     name: 'Jessie Doe',
-//     m_records: 'Anytown',
-//     r_date: '070803',
-//   };
-
-//   //Setting an expiration data parameter for the VC
-//   const oneYearFromNow = new Date();
-//   oneYearFromNow.setFullYear(new Date().getFullYear() + 1);
-
-//   const expirationDate = oneYearFromNow.toISOString();
-
-//   const additionalParams = {
-//     id: vcDidKey,
-//     expirationDate: expirationDate,
-//   };
-
-//   //Schema validation
-//   const proofOfAddressSchema = await SchemaManager.getSchemaRemote(
-//     VC_SCHEMA_URL
-//   );
-
-//   const validation: any = await SchemaManager.validateCredentialSubject(
-//     subjectData,
-//     proofOfAddressSchema as JsonSchema
-//   );
-
-//   if (validation) {
-//     console.log(
-//       `\nGenerating Verifiable Credential of type ${credentialType}\n`
-//     );
-
-//     const vc = await createCredentialFromSchema(
-//       VC_SCHEMA_URL,
-//       issuerDidWithKeys.did,
-//       holderDidWithKeys.did,
-//       subjectData,
-//       credentialType,
-//       additionalParams
-//     );
-
-//     console.log(JSON.stringify(vc, null, 2));
-//   } else {
-//     console.log(validation.errors);
-//   }
-// };
+const VC_SCHEMA_URL = 'https://raw.githubusercontent.com/arypte/DID_Hackathon/main/onyx_sdk/src/services/common/schemas/definitions/proofOfdog.json' ;
 
 
-export const GET = async (req : NextApiRequest , res : NextApiResponse<Data> ) => {
+export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     try {
-      
-    console.log( ethrProvider.rpcUrl ) ;
-    console.log( 'test');
-    return NextResponse.json({
-        ok: true,
-      });
+
+    const { did , name , date , m_records } = await req.json();
+   // console.log( did , name , date , m_records ) ;
+        
+    const didEthr = new EthrDIDMethod(ethrProvider);
+
+    const issuerDidWithKeys = await didEthr.generateFromPrivateKey(
+        '0x98ffa73fb2cf973f36769bb26c472f384edc945d4f7be7723daf84fe8e0adafb'
+    );
+
+    const holderDidWithKeys = did ;
+
+  const vcDidKey = (await didEthr.create()).did;
+
+  const credentialType = 'PROOF_OF_Dog';
+
+  const subjectData: Object = {
+    name ,
+    m_records ,
+    r_date : date ,
+  };
+
+  //Setting an expiration data parameter for the VC
+  const oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(new Date().getFullYear() + 1);
+
+  const expirationDate = oneYearFromNow.toISOString();
+
+  const additionalParams = {
+    id: vcDidKey,
+    expirationDate: expirationDate,
+  };
+
+  //Schema validation
+  const proofOfAddressSchema = await SchemaManager.getSchemaRemote(
+    VC_SCHEMA_URL
+  );
+
+  const validation: any = await SchemaManager.validateCredentialSubject(
+    subjectData,
+    proofOfAddressSchema as JsonSchema
+  );
+
+  let vc ;
+
+  if (validation) {
+    console.log(
+      `\nGenerating Verifiable Credential of type ${credentialType}\n`
+    );
+
+    vc = await createCredentialFromSchema(
+      VC_SCHEMA_URL,
+      issuerDidWithKeys.did,
+      holderDidWithKeys ,
+      subjectData,
+      credentialType,
+      additionalParams
+    );
+
+    }
+    return NextResponse.json({ 
+        vc
+    } ) ;
+  
     } catch (error) {
       console.error(error);
     }
