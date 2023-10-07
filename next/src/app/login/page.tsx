@@ -33,7 +33,7 @@ const Login = () => {
                 gotoMain();
               }}
             >
-              Let's start zk-pet
+              Let's start ZK-PAW
             </button>
 
             <button
@@ -55,7 +55,7 @@ const Login = () => {
       <div className="flex flex-col items-center font-bold">
         <div className="flex justify-center items-center mb-4">
           <Image src={img} width={40} height={20} alt="home page img" />
-          <div className="text-4xl pl-2">Pet's DID</div>
+          <div className="text-4xl pl-2">ZK PAW</div>
         </div>
         <Image src={img1} width={140} height={60} alt="home page img" />
         <div className="mt-14 flex flex-col w-[300px] text-sm">
