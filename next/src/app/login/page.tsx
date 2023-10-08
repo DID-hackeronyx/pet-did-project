@@ -13,7 +13,6 @@ const Login = () => {
   const { account, setAccount ,web3 } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session);
 
   const gotoMain = async() => {
 
@@ -25,19 +24,17 @@ const Login = () => {
 
       if( response.data.ok ){
         setAccount( response.data.user ) ;
-        router.push("/main");
       }
-
-      const newAccount = web3.eth.accounts.create();
-      const user = await axios.post( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
-      {
-        unique_key : id,
-        pvk :  newAccount.privateKey ,
-        name : id
+      else {
+        const newAccount = web3.eth.accounts.create();
+        const user = await axios.post( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
+        {
+          unique_key : id,
+          pvk :  newAccount.privateKey ,
+          name : id
+        });
+        setAccount( user.data.user ) ;
       }
-       );
-
-      setAccount( user.data.user ) ;
       router.push("/main");
     } catch (error) {
       console.error(error);

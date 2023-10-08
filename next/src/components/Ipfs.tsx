@@ -4,29 +4,49 @@ import React from "react";
 import axios from "axios";
 
 const Ipfs = () => {
-  const [fileImg, setFileImg] = useState(null);
+  
+  const [imageFile, setImageFile] = useState<File>();
+  const [url , setUrl] = useState() ;
+
+  const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (!e.target.files) return;
+
+    setImageFile(e.target.files[0]);
+  };
+
   const sendFileToIPFS = async (e) => {
-    if (fileImg) {
+    if (imageFile) {
       e.preventDefault();
       try {
-        const formData = new FormData();
-        formData.append("file", fileImg);
 
-        console.log(formData);
+        const imageFormData = new FormData();
 
-        const resFile = await axios({
-          method: "post",
-          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-          data: formData,
-          headers: {
-            pinata_api_key: `${process.env.NEXT_PUBLIC_PINATA_API_KEY}`,
-            pinata_secret_api_key: `${process.env.NEXT_PUBLIC_PINATA_API_SECRET}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        imageFormData.append("file", imageFile);
+        imageFormData.append(
+          "pinataMetadata",
+          JSON.stringify({
+            name: `1_image`,
+          })
+        );
+        imageFormData.append(
+          "pinataOptions",
+          JSON.stringify({
+            cidVersion: 0,
+          })
+        );      
+        const imageRes = await axios.post(
+          "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          imageFormData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_KEY}`,
+            },
+          }
+        );
 
-        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
-        console.log(ImgHash);
+        setUrl( `https://${process.env.NEXT_PUBLIC_PINATA_URL}/ipfs/${imageRes.data.IpfsHash}` ) ;
+        console.log( imageRes.data.IpfsHash ) ;
         //Take a look at your Pinata Pinned section, you will see a new file added to you list.
       } catch (error) {
         console.log("Error sending File to IPFS: ");
@@ -37,11 +57,11 @@ const Ipfs = () => {
 
   return (
     <form onSubmit={sendFileToIPFS}>
-      <input
+       <input
+        id="imageFile"
         type="file"
-        onChange={() => setFileImg(e.target.files[0])}
-        required
-      />
+        onChange={onChangeImageFile}
+    />
       <button type="submit">Mint NFT</button>
     </form>
   );
