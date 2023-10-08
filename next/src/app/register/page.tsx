@@ -1,7 +1,14 @@
+import ContainerHeader from "@/components/ContainerHeader";
 import React from "react";
+import Register from "@/components/Register";
 
-const Register = () => {
-  return <div>Register</div>;
+const Page = () => {
+  return (
+    <div className="min-h-screen flex flex-col items-center">
+      <ContainerHeader title="Register" />
+      <Register />
+    </div>
+  );
 };
 
-export default Register;
+export default Page;
