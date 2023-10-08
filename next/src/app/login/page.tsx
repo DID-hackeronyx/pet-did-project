@@ -12,7 +12,6 @@ const Login = () => {
   const { account, setAccount, web3 } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session);
 
   const gotoMain = async () => {
     try {
@@ -22,6 +21,7 @@ const Login = () => {
       );
       // console.log( response.data.ok ) ;
 
+<<<<<<< HEAD
       if (response.data.ok) {
         setAccount(response.data.user);
         router.push("/main");
@@ -38,6 +38,21 @@ const Login = () => {
       );
 
       setAccount(user.data.user);
+=======
+      if( response.data.ok ){
+        setAccount( response.data.user ) ;
+      }
+      else {
+        const newAccount = web3.eth.accounts.create();
+        const user = await axios.post( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
+        {
+          unique_key : id,
+          pvk :  newAccount.privateKey ,
+          name : id
+        });
+        setAccount( user.data.user ) ;
+      }
+>>>>>>> ef44ab8553c3289411f85f4ec715f80e278c6509
       router.push("/main");
     } catch (error) {
       console.error(error);
