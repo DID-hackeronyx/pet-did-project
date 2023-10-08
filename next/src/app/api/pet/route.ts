@@ -8,12 +8,13 @@ export const GET = async (req, res) => {
 
     const { searchParams } = new URL(req.url);
     let did = searchParams.get("did");
-    let userId = Number(searchParams.get("userId"));
+    let userId = Number(searchParams.get("userId")) ;
+    let unique_key = searchParams.get("unique_key") ;
     // console.log( token ) ;
 
     let response ;
 
-    if( !did ){
+    if( userId ){
 
     response = await prisma.pet.findMany({
       where: {
@@ -23,11 +24,21 @@ export const GET = async (req, res) => {
 
     }
 
-    if( !userId ) {
+    if( did ) {
 
       response = await prisma.pet.findFirst({
         where: {
           did ,
+        },
+      });
+
+    }
+
+    if( unique_key ) {
+
+      response = await prisma.pet.findFirst({
+        where: {
+          unique_key ,
         },
       });
 

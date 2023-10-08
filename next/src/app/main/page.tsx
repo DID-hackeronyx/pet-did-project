@@ -30,17 +30,13 @@ const Main = () => {
     const response: any = await axios.get(
       `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet?userId=${account.id}`
     );
-    console.log(response.data.response);
     setMypetInfo(response.data.response);
   };
 
   useEffect(() => {
-    console.log(account);
+    if( account ){
     getMypet();
-  }, []);
-
-  useEffect(() => {
-    getMypet();
+    }
   }, [account]);
 
   return (
@@ -50,7 +46,7 @@ const Main = () => {
         <div className="font-bold text-xl">Your Pets</div>
         <div className="text-gray-400 text-sm">Lovely your Pets</div>
         <div className="bg-white rounded-md grid grid-cols-2 gap-4 my-5 p-4">
-          {mypetInfo.map((pet, index) => (
+          {mypetInfo?.map((pet, index) => (
             <button onClick={() => open(index)}>
               {" "}
               {/* 클릭 시 openModal 함수 호출 */}
