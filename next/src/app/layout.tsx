@@ -1,6 +1,10 @@
+"use client"
 import AuthContext from "@/components/AuthContext";
 import "./globals.css";
 import type { Metadata } from "next";
+import { createContext, useState } from "react";
+
+export const AppContext = createContext();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,10 +16,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const [account, setAccount] = useState();
+
   return (
     <html lang="en">
       <body>
-        <AuthContext>{children}</AuthContext>
+        <AppContext.Provider value={{ account, setAccount }}>
+          <AuthContext>{children}</AuthContext>
+        </AppContext.Provider>
       </body>
     </html>
   );
