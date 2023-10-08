@@ -1,22 +1,30 @@
+// pages/adopts/index.jsx
+"use client";
 import ContainerHeader from "@/components/ContainerHeader";
 import PetCard from "@/components/PetCard";
+import Link from "next/link";
 import React from "react";
+import data from "../data.json"; // Adjust the path accordingly
+import axios from "axios";
 
-const dogData = [
-  { id: 1, name: "Luna", image: "/images/Maltese.png" },
-  { id: 2, name: "Max", image: "/images/Poodle.png" },
-  { id: 3, name: "Coco", image: "/images/Pomeranian.png" },
-  { id: 4, name: "Oliver", image: "/images/Chihuahua.png" },
-  { id: 5, name: "Daisy", image: "/images/Maltese.png" },
-];
+const petInfo = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_URL}/api/did`
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const Adopts = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center pb-10 ">
-      <div className="text-4xl h-full flex flex-col justify-center items-start font-bold text-left">
-        <ContainerHeader />
+    <div className="min-h-screen flex flex-col items-center pb-10">
+      <ContainerHeader title="adopts" />
+      <button onClick={petInfo}>button</button>
+      <div className="text-4xl flex flex-col justify-center items-start font-bold text-left mt-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {dogData.map((dog) => (
+          {data.map((dog) => (
             <PetCard key={dog.id} dog={dog} />
           ))}
         </div>
