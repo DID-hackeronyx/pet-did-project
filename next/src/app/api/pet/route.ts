@@ -10,9 +10,20 @@ export const GET = async (req, res) => {
     let did = searchParams.get("did");
     let userId = Number(searchParams.get("userId")) ;
     let unique_key = searchParams.get("unique_key") ;
-    // console.log( token ) ;
-
+    let isListing = searchParams.get("isListing") ;
     let response ;
+    if( isListing ) {
+
+      const bool_data = isListing == 't' ? true : false ;
+
+      response = await prisma.pet.findMany({
+        where: {
+          isListing : bool_data
+        },
+      });
+
+    }
+    // console.log( token ) ;
 
     if( userId ){
 
