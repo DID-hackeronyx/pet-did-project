@@ -26,7 +26,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
-    "utf-8-validate": "^5.0.10"
+    "utf-8-validate": "^5.0.10",
+    "web3": "^4.1.2"
   },
   "devDependencies": {
     "@types/node": "^20",
