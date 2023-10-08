@@ -22,7 +22,7 @@ const Banner = () => {
         </Link>
       </div>
       <div className="pl-10 ">
-        <Link href="/adopts">
+        <Link href="/register">
           <PiDogBold className="text-lg ml-4" />
           <div className="text-sm font-semibold hover:text-gray-300">
             Register
@@ -30,7 +30,7 @@ const Banner = () => {
         </Link>
       </div>
       <div className="pl-10 ">
-        <Link href="/comm">
+        <Link href="/community">
           <PiDogBold className="text-lg ml-6" />
           <div className="text-sm font-semibold hover:text-gray-300">
             Community
