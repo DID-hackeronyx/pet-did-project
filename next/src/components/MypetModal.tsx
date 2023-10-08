@@ -2,6 +2,7 @@ import { AppContext } from "@/app/layout";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type Props = {
   title?: string;
@@ -16,6 +17,9 @@ const MypetModal = ({ title, message, close, index }: Props) => {
   const [mypetImg, setMypetImg] = useState();
   const [isListing, setIsListing] = useState<boolean>();
   const [isLoading, setIsLoading] = useState(true);
+  const [userResponse, setUserResponse] = useState();
+
+  const router = useRouter();
 
   const getMypet = async () => {
     try {
@@ -30,6 +34,7 @@ const MypetModal = ({ title, message, close, index }: Props) => {
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/vc?petId=${response.data.response[index].id}`
       );
 
+      setUserResponse(response.data.response[index]);
       setMypetInfo(responsePet.data.response);
       setMypetImg(response.data.response[index].image_Url);
       setIsListing(response.data.response[index].isListing);
@@ -40,6 +45,28 @@ const MypetModal = ({ title, message, close, index }: Props) => {
       console.error("데이터를 가져오는 중에 오류가 발생했습니다.", error);
     }
   };
+
+  const changeListingValue = async () => {
+    try {
+      const data = {
+        id: mypetInfo.id,
+        userId: userResponse.userId,
+      };
+
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet`,
+        data
+      );
+      setIsListing(!isListing);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    router.refresh();
+  }, [isListing]);
 
   useEffect(() => {
     console.log(account);
@@ -82,7 +109,11 @@ const MypetModal = ({ title, message, close, index }: Props) => {
               </div>
             </div>
             <div className="self-end">
-              {isListing === false ? <button>Sale</button> : ""}
+              {isListing === false ? (
+                <button onClick={changeListingValue}>Sale</button>
+              ) : (
+                <button onClick={changeListingValue}>Cancel</button>
+              )}
             </div>
           </div>
         )}
