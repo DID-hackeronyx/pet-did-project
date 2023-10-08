@@ -7,30 +7,34 @@ export const GET = async (req, res) => {
   try {
 
     const { searchParams } = new URL(req.url);
-    let token = searchParams.get("token");
+    let did = searchParams.get("did");
+    let userId = Number(searchParams.get("userId"));
     // console.log( token ) ;
 
-    const user = await prisma.user.findFirst({
+    let response ;
+
+    if( !did ){
+
+    response = await prisma.pet.findMany({
       where: {
-        unique_key: token,
+        userId ,
       },
     });
 
-    if (!user) {
+    }
 
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "Not exist User.",
+    if( !userId ) {
+
+      response = await prisma.pet.findFirst({
+        where: {
+          did ,
         },
-        {
-          status: 400,
-        }
-      );
+      });
+
     }
 
     return NextResponse.json({
-      user,
+      response,
     });
   } catch (error) {
     console.error(error);
