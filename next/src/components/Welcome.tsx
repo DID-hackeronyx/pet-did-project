@@ -3,25 +3,21 @@ import Link from "next/link";
 
 const Welcome = ({ onPrevious }: any) => {
   return (
-    <div className="min-h-screen flex items-center justify-center pb-10 pt-6">
-      <div className="text-4xl h-full flex flex-col justify-center items-start font-bold text-left">
-        <p className="mb-4">Hello!</p>
-        <p>Manage your </p>
-        <p>pet's information</p>
-        <p>through DID</p>
-        <p>and find your pet</p>
-        <p>through verified</p>
-        <p>and transparent</p>
-        <p>records.</p>
-        <div className="mt-14 flex flex-col w-[300px] mb-[75px] text-sm ">
-          <button
-            className="bg-neutral-900 text-white w-full py-4 rounded-full hover:bg-neutral-700 font-bold "
-            onClick={onPrevious}
-          >
-            Previous
-          </button>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-4xl h-full flex flex-col justify-center items-start font-bold text-left w-[80%]">
+        <div className="h-[60vh]">
+          <p className="mb-14">Hello!</p>
+          <p>Manage your </p>
+          <p>pet's information</p>
+          <p>through DID</p>
+          <p>and find your pet</p>
+          <p>through verified</p>
+          <p>and transparent</p>
+          <p>records.</p>
+        </div>
+        <div className="mt-32 flex flex-col w-full text-sm">
           <Link href="/login">
-            <button className="bg-neutral-900 text-white w-full py-4 rounded-full hover:bg-neutral-700 font-bold mt-4">
+            <button className="bg-neutral-900 text-white w-full py-4 rounded-full hover:bg-neutral-700 font-bold">
               Next
             </button>
           </Link>

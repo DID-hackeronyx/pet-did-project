@@ -9,9 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@biconomy/account": "^3.1.0",
+    "@biconomy/bundler": "^3.1.0",
+    "@biconomy/common": "^3.1.0",
+    "@biconomy/core-types": "^3.1.0",
+    "@biconomy/particle-auth": "^3.1.0",
+    "@biconomy/paymaster": "^3.1.0",
     "@jpmorganchase/onyx-ssi-sdk": "^0.0.1",
+    "@prisma/client": "^4.16.2",
     "axios": "^1.5.1",
     "bufferutil": "^4.0.7",
+    "encoding": "^0.1.13",
+    "ethers": "^5.7.2",
     "next": "13.5.4",
     "next-auth": "^4.23.2",
     "react": "^18",
@@ -27,6 +36,7 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "postcss": "^8",
+    "prisma": "^4.16.2",
     "tailwindcss": "^3",
     "typescript": "^5"
   }
