@@ -19,6 +19,7 @@ model User {
   unique_key      String    @unique
   posts           Post[]
   pet             Pet[]
+  name            String
 }
 
 model Pet {
