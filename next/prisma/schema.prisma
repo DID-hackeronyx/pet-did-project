@@ -32,6 +32,8 @@ model Pet {
   userId          Int
   user            User      @relation(fields: [userId], references: [id])
   vc              VC[]
+  isListing       Boolean
+  image_Url       String
 }
 
 model Post{
@@ -54,5 +56,4 @@ model VC{
   r_date          String
   m_records       String
   did             String       
-  image_Url       String
 }
