@@ -2,6 +2,8 @@ import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { GrFormView } from "react-icons/gr";
+import View from "../view/page";
 
 // server 명령어 : npx json-server --port 9999 --watch db.json
 
@@ -24,35 +26,33 @@ const Community = async () => {
     <>
       <div className="relative min-h-screen flex flex-col w-full px-4">
         <Header />
-        <div className="mt-10 flex">
-          <ol className="w-10 text-center">
-            <div className="font-bold text-xl mb-4 py-2 border-b-2 border-gray-300">
-              No.
-            </div>
-            {topics.map((topic: any) => {
-              return <li className="my-6 text-xl font-medium">{topic.id}</li>;
-            })}
-          </ol>
-          <ol className="ml-8">
-            <div className="font-bold text-xl mb-4 py-2 text-center border-b-2 border-gray-300">
-              Title
-            </div>
+        <div className="mt-10 flex justify-start">
+          <ul className="w-full">
             {topics.map((topic: any) => {
               return (
-                <li className="my-6 text-xl font-medium">
+                <li className="my-5 py-2 font-medium border-b-2 border-gray-200">
                   <Link href={`/read/${topic.id}`}>
-                    {truncateText(topic.title, 25)}
+                    <div className="flex justify-between">
+                      <div>{truncateText(topic.title, 30)}</div>
+                      <div className="flex justify-between text-xs">
+                        <div className="flex flex-col justify-center items-center mx-4">
+                          {topic.view}
+                          <GrFormView />
+                        </div>
+                        <div>{topic.time}</div>
+                      </div>
+                    </div>
                   </Link>
                 </li>
               );
             })}
-          </ol>
+          </ul>
         </div>
-        <div className="absolute bottom-28 right-4 flex justify-end">
-          <Link href="/create">
-            <AiOutlinePlusCircle className="w-10 h-10" />
-          </Link>
-        </div>
+      </div>
+      <div className="absolute bottom-20 right-4 flex justify-end">
+        <Link href="/create">
+          <AiOutlinePlusCircle className="w-10 h-10" />
+        </Link>
       </div>
       <Banner />
     </>

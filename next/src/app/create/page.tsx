@@ -30,13 +30,14 @@ export default function Create() {
               const title = e.target.title.value;
               const contents = e.target.contents.value;
               const time = getCurrentDate();
+              const view = 0;
 
               const options = {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ title, contents, time }),
+                body: JSON.stringify({ title, contents, time, view }),
               };
 
               fetch(`http://localhost:9999/topics`, options)

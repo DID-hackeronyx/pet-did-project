@@ -9,7 +9,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Login = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  // console.log(session);
+  console.log(session);
 
   const gotoMain = () => {
     //Let's start zk-pet 버튼 클릭하면 Main 페이지로 이동.
