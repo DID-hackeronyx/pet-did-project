@@ -41,6 +41,47 @@ export const GET = async (req, res) => {
   }
 };
 
+export const PATCH = async (req, res) => {
+  try {
+    
+    const { id , userId } = await req.json();
+    
+    const response = await prisma.pet.findFirst({
+      where : {
+        id , 
+      }
+    })
+
+    if( !response ) {
+      
+      return NextResponse.json({
+        ok : false ,
+      });
+    }
+    
+    if( response.userId != userId ){
+      return NextResponse.json({
+        ok : false ,
+      });
+    }
+
+    const update = await prisma.pet.update({
+      where : {
+        id,
+      },
+      data: {
+        isListing: !response.isListing // isListing을 반전시켜 업데이트
+      }
+    })
+
+    return NextResponse.json({
+      ok : true ,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 // 함수명이 해당하는 요청으로 정해져있음. (POST), DB와 상호작용하니 비동기로 해야 함
 // 응답 할 때 까지 기다려서 응답이 꼭 있어야 함.
