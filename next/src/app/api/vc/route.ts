@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from 'next/server';
+import prisma from '../../lib/prisma';
+import { NextRequest, NextResponse } from "next/server";
 import {
   JsonSchema,
   SchemaManager,
@@ -16,6 +17,37 @@ const ethrProvider = {
 };
 
 const VC_SCHEMA_URL = 'https://raw.githubusercontent.com/arypte/DID_Hackathon/main/onyx_sdk/src/services/common/schemas/definitions/proofOfdog.json' ;
+
+export const GET = async (req, res) => {
+  try {
+
+    const { searchParams } = new URL(req.url);
+    let petId = Number(searchParams.get("petId") ) ;
+
+    const response = await prisma.vc.findFirst({
+      where: {
+        petId,
+      },
+    });
+
+    if (!response ) {
+
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Not exist User.",
+        },
+      );
+    }
+
+    return NextResponse.json({
+      ok: true ,
+      response ,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {

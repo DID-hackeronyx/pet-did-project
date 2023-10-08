@@ -31,7 +31,7 @@ model Pet {
   did             String    @unique
   userId          Int
   user            User      @relation(fields: [userId], references: [id])
-  vc              VC[]
+  vc              Vc[]
   isListing       Boolean
   image_Url       String
 }
@@ -46,7 +46,7 @@ model Post{
   content         String
 }
 
-model VC{
+model Vc{
   id              Int       @default(autoincrement()) @id
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
