@@ -1,24 +1,53 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import img1 from "../../../public/images/pet-breeds.webp";
 import img from "../../../public/images/pet-icon.png";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { AppContext } from "../layout";
+import axios from "axios";
 
 const Login = () => {
+  
+  const { account, setAccount ,web3 } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
 
-  const gotoMain = () => {
-    //Let's start zk-pet 버튼 클릭하면 Main 페이지로 이동.
-    router.push("/main");
+  const gotoMain = async() => {
+
+    try {
+
+      const id = session?.user.id ;
+      const response = await axios.get( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user?token=${id}` );
+      // console.log( response.data.ok ) ;
+
+      if( response.data.ok ){
+        setAccount( response.data.user ) ;
+        router.push("/main");
+      }
+
+      const newAccount = web3.eth.accounts.create();
+      const user = await axios.post( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
+      {
+        unique_key : id,
+        pvk :  newAccount.privateKey ,
+        name : id
+      }
+       );
+
+      setAccount( user.data.user ) ;
+      router.push("/main");
+    } catch (error) {
+      console.error(error);
+    }
+    
   };
 
   // 로그인 정보 있으면 바로 Main페이지로 이동
   useEffect(() => {
-    gotoMain();
+    if( session ) gotoMain();
   }, [session]);
 
   return (

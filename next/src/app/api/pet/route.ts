@@ -23,14 +23,17 @@ export const GET = async (req, res) => {
           ok: false,
           error: "Not exist User.",
         },
+        {
+          status: 400,
+        }
       );
     }
 
     return NextResponse.json({
-      ok: true ,
       user,
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -42,18 +45,25 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // json에 body가 담겨있음
 
-    const { unique_key , pvk, name } = await req.json();
+    const { auth, pvk, nickname, login_type } = await req.json();
+    // console.log(auth, pvk, nickname, pvk);
 
     // upsert = update + create (처음 들어오면 만들고 있으면 업데이트)
-    const user = await prisma.user.create({
-        data:{
-        pvk ,
-        name,
-        unique_key,
-      }
+    const user = await prisma.user.upsert({
+      where: { auth },
+      update: {},
+      create: {
+        login_type,
+        address: pvk,
+        nickname,
+        auth,
+        count: 0,
+      },
     });
 
-    return NextResponse.json({ user });
+    // console.log()는 npm run dev 했던 터미널에서 확인 가능
+
+    return NextResponse.json({ ok: true, user });
   } catch (error) {
     console.error(error);
   }

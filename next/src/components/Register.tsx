@@ -8,7 +8,7 @@ import { BiSolidDog } from "react-icons/bi";
 import { FaBirthdayCake } from "react-icons/fa";
 import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
 
-const Register = () => {
+const Register = ({ selectedImage }) => {
   // 상태(State) 정의
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -61,9 +61,15 @@ const Register = () => {
     }
   };
   return (
+<<<<<<< HEAD
     <div className="flex flex-col justify-center items-start w-full">
       <div className="flex justify-center w-full my-10">
         <Image src={img} alt="plusImage" width={192} height={192} />
+=======
+    <div className="flex flex-col items-start">
+      <div className="flex ml-10 mb-4">
+        <Image src={selectedImage} alt="plusImage" width={192} height={192} />
+>>>>>>> 44f9ea56d0356af3586f1e0982da17f2c1a2d962
       </div>
       {/* {vcName && <p>Name from VC: {vcName}</p>} */}
       <div className="flex justify-center items-center mb-6 w-full">
