@@ -1,8 +1,10 @@
 // pages/adopts/index.jsx
+"use client";
 
 import ContainerHeader from "@/components/ContainerHeader";
 import PetCard from "@/components/PetCard";
 import data from "../data.json";
+import { fetchData } from "../api";
 
 const Adopts = () => {
   return (
