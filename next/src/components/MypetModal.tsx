@@ -23,7 +23,6 @@ const MypetModal = ({ title, message, close, index }: Props) => {
 
   const getMypet = async () => {
     try {
-      // 데이터를 가져오는 중임을 표시
       setIsLoading(true);
 
       const response: any = await axios.get(
@@ -39,10 +38,9 @@ const MypetModal = ({ title, message, close, index }: Props) => {
       setMypetImg(response.data.response[index].image_Url);
       setIsListing(response.data.response[index].isListing);
 
-      // 데이터 가져오기가 완료되었음을 표시
       setIsLoading(false);
     } catch (error) {
-      console.error("데이터를 가져오는 중에 오류가 발생했습니다.", error);
+      console.error(error);
     }
   };
 
@@ -85,10 +83,8 @@ const MypetModal = ({ title, message, close, index }: Props) => {
       ></div>
       <div className="w-[90%] bg-white p-8 rounded-lg max-w-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         {isLoading ? (
-          // 로딩 중일 때 보여줄 내용
           <p>Loading...</p>
         ) : (
-          // 데이터를 가져온 후에 보여줄 내용
           <div className="flex flex-col">
             <div className="flex justify-center items-center">
               {mypetImg && <Image src={mypetImg} width={200} height={200} />}

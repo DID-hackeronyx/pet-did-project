@@ -34,8 +34,8 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if( account ){
-    getMypet();
+    if (account) {
+      getMypet();
     }
   }, [account]);
 
