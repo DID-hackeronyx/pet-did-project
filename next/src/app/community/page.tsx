@@ -26,7 +26,11 @@ const Community = async () => {
     <>
       <div className="relative min-h-screen flex flex-col w-full px-4">
         <Header />
-        <div className="mt-10 flex justify-start">
+        <div className="mt-4 flex flex-col">
+          <div className="font-bold text-xl">Community</div>
+          <div className="text-gray-400 text-sm">
+            Share a tip or ask for advice
+          </div>
           <ul className="w-full">
             {topics.map((topic: any) => {
               return (
@@ -34,7 +38,7 @@ const Community = async () => {
                   <Link href={`/read/${topic.id}`}>
                     <div className="flex justify-between">
                       <div>{truncateText(topic.title, 30)}</div>
-                      <div className="flex justify-between text-xs">
+                      <div className="flex justify-between items-center text-xs">
                         <div className="flex flex-col justify-center items-center mx-4">
                           {topic.view}
                           <GrFormView />
@@ -49,9 +53,9 @@ const Community = async () => {
           </ul>
         </div>
       </div>
-      <div className="absolute bottom-20 right-4 flex justify-end">
+      <div className="absolute bottom-24 right-4 flex justify-end">
         <Link href="/create">
-          <AiOutlinePlusCircle className="w-10 h-10" />
+          <AiOutlinePlusCircle className="w-8 h-8" />
         </Link>
       </div>
       <Banner />

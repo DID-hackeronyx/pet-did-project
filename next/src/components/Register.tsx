@@ -4,7 +4,9 @@ import axios from "axios";
 import React from "react";
 import Image from "next/image";
 import img from "../../public/images/coco.png";
-import imgIcon from "../../public/images/pet-icon.png";
+import { BiSolidDog } from "react-icons/bi";
+import { FaBirthdayCake } from "react-icons/fa";
+import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
 
 const Register = () => {
   // 상태(State) 정의
@@ -59,61 +61,49 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex flex-col items-start">
-      <div className="flex ml-10 mb-4">
+    <div className="flex flex-col justify-center items-start w-full">
+      <div className="flex justify-center w-full my-10">
         <Image src={img} alt="plusImage" width={192} height={192} />
       </div>
       {/* {vcName && <p>Name from VC: {vcName}</p>} */}
-      <div className="flex mb-4">
-        <Image
-          src={imgIcon}
-          alt="Medical Records"
-          className="w-8 h-8 object-cover mr-2"
-        />
+      <div className="flex justify-center items-center mb-6 w-full">
+        <BiSolidDog className="w-8 h-8 mr-4" />
         {/* Name 입력란 */}
         <input
           type="text"
           placeholder="Enter Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="text-xl text-gray-600 mb-4 border rounded px-2 py-1"
+          className="text-lg text-gray-600 border rounded-md px-2 py-1 w-full"
         />
       </div>
-      <div className="flex mb-4">
-        <Image
-          src={imgIcon}
-          alt="Medical Records"
-          className="w-8 h-8 object-cover mr-2"
-        />
+      <div className="flex justify-center items-center mb-6 w-full">
+        <FaBirthdayCake className="w-8 h-8 mr-4" />
         {/* Date 입력란 */}
         <input
           type="text"
-          placeholder="Enter Date"
+          placeholder="Enter Birthday"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="text-xl text-gray-600 mb-2 border rounded px-2 py-1"
+          className="text-lg text-gray-600 border rounded-md px-2 py-1 w-full"
         />
       </div>
-      <div className="flex mb-4">
-        <Image
-          src={imgIcon}
-          alt="Medical Records"
-          className="w-8 h-8 object-cover mr-2"
-        />
+      <div className="flex justify-center items-center mb-6 w-full">
+        <BsFillFileEarmarkMedicalFill className="w-8 h-8 mr-4" />
         {/* Medical Records 입력란 */}
         <input
           type="text"
           placeholder="Enter Medical Records"
           value={medicalRecord}
           onChange={(e) => setMedicalRecord(e.target.value)}
-          className="text-xl text-gray-600 mb-4 border rounded px-2 py-1"
+          className="text-lg text-gray-600 border rounded-md px-2 py-1 w-full h-32"
         />
       </div>
       <div className="self-end">
         {/* "입양" 버튼에 이벤트 핸들러 추가 */}
         <button
           onClick={handleVcButtonClick}
-          className="bg-blue-500 hover:bg-blue-700 text-white text-xs py-1 px-1 rounded"
+          className="px-6 py-2 border border-blue-300 text-blue-400 font-semibold text-lg rounded-lg"
         >
           Register
         </button>

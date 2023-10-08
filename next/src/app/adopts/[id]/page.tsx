@@ -5,18 +5,24 @@ import PetDetails from "@/components/PetDetails";
 import React from "react";
 import { useParams } from "next/navigation";
 import data from "../../data.json";
+import Header from "@/components/Header";
 
 const PetDetailsPage = () => {
   const { id } = useParams();
   const selectedDog = data.find((dog) => dog.id === parseInt(id));
 
   return (
-    <div className="min-h-screen flex flex-col items-center pb-10">
-      <ContainerHeader title={`${selectedDog.name} DID`} />
-      <div className="text-4xl flex flex-col justify-center items-start font-bold text-left mt-4">
+    <>
+      <div className="relative min-h-screen flex flex-col w-full px-4">
+        <Header />
+        <div className="my-4 flex flex-col">
+          <div className="font-bold text-2xl border-b-2 border-gray-300 pb-4">
+            {selectedDog.name} Info
+          </div>
+        </div>
         {selectedDog ? <PetDetails dog={selectedDog} /> : <p>Loading...</p>}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,10 +6,12 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { GiCancel } from "react-icons/gi";
+import { AiFillCheckCircle } from "react-icons/ai";
 
 export default function Update() {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [savedView, setSavedView] = useState("");
 
   const router = useRouter();
   const params = useParams();
@@ -23,6 +25,7 @@ export default function Update() {
       .then((result) => {
         setTitle(result.title);
         setContents(result.contents);
+        setSavedView(result.view);
       });
   }, []);
 
@@ -46,13 +49,14 @@ export default function Update() {
               const title = e.target.title.value;
               const contents = e.target.contents.value;
               const time = getCurrentDate();
+              const view = savedView;
 
               const options = {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ title, contents, time }),
+                body: JSON.stringify({ title, contents, time, view }),
               };
 
               fetch(`http://localhost:9999/topics/` + id, options)
@@ -85,11 +89,9 @@ export default function Update() {
               />
             </div>
             <div>
-              <input
-                type="submit"
-                value="Edit"
-                className="absolute bottom-28 right-14 flex justify-end border border-gray-400 py-2 px-4 rounded-xl"
-              />
+              <button type="submit">
+                <AiFillCheckCircle className="absolute bottom-28 right-14 w-8 h-8" />
+              </button>
             </div>
             <Link href={`/read/${id}`}>
               <GiCancel className="absolute bottom-28 right-4 w-8 h-8" />

@@ -17,11 +17,11 @@ export default async function Read(props: any) {
       <div className="relative min-h-screen flex flex-col w-full px-4">
         <Header />
         <div className="mt-10 flex flex-col w-full">
-          <div className="my-6 w-full border-b-2 border-gray-300 py-2 px-4 rounded-md flex justify-between">
+          <div className="mt-6 w-full border-b-2 border-gray-300 py-2 px-4 rounded-md flex justify-between">
             {topic.title}
             <View />
           </div>
-          <div className="mt-8 py-2 px-4 h-96">
+          <div className="py-2 px-4 h-96">
             <div>{topic.contents}</div>
           </div>
         </div>

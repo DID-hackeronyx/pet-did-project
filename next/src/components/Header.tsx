@@ -9,10 +9,10 @@ const Header = () => {
       <Link href="/main">
         <div className="flex items-center justify-center">
           <Image src={img} width={35} height={35} alt="home page img" />
-          <span className="ml-2">ZK-PAW</span>
+          <div className="ml-2">ZK-Paw</div>
         </div>
       </Link>
-      <span className="text-xl">Hi Michael</span>
+      <div className="text-base">Hi Michael</div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { GrFormView } from "react-icons/gr";
 
 export default function View() {
   const [view, setView] = useState();
@@ -52,6 +53,7 @@ export default function View() {
       }
       const updateResult = await updateResponse.json();
       console.log(updateResult);
+      router.refresh();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -63,7 +65,10 @@ export default function View() {
 
   return (
     <>
-      <div>{view}</div>
+      <div className="flex flex-col text-sm justify-center items-center">
+        {view}
+        <GrFormView />
+      </div>
     </>
   );
 }

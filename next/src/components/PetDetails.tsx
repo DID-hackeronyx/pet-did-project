@@ -3,6 +3,12 @@ import { useState } from "react";
 import imgIcon from "../../public/images/pet-icon.png";
 import Image from "next/image";
 import Modal from "./Modal";
+import { BiSolidDog } from "react-icons/bi";
+import { FaBirthdayCake } from "react-icons/fa";
+import { GoIssueClosed } from "react-icons/go";
+import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
+import { AiOutlineLeft } from "react-icons/ai";
+import Link from "next/link";
 
 const PetDetails = ({ dog }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,8 +25,8 @@ const PetDetails = ({ dog }) => {
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md relative">
-      <div className="flex flex-col items-start">
-        <div className="flex ml-10 mb-4">
+      <div className="flex flex-col">
+        <div className="flex justify-center items-center mb-6">
           <Image
             src={`/images/${dog.name}.png`}
             alt={dog.name}
@@ -28,45 +34,40 @@ const PetDetails = ({ dog }) => {
             height={192}
           />
         </div>
-        <div className="flex mb-4">
-          <Image
-            src={imgIcon}
-            alt="Medical Records"
-            className="w-8 h-8 object-cover mr-2"
-          />
-          <h2 className="text-xl text-gray-600 mb-4">Name: {dog.name}</h2>
+        <div className="flex mb-4 items-center">
+          <BiSolidDog className="w-8 h-8 mr-4" />
+          <div className="flex flex-col">
+            <div className="text-sm">Name</div>
+            <div className="text-2xl font-semibold">{dog.name}</div>
+          </div>
         </div>
-        <div className="flex mb-4">
-          <Image
-            src={imgIcon}
-            alt="Medical Records"
-            className="w-8 h-8 object-cover mr-2"
-          />
-          <h2 className="text-xl text-gray-600 mb-4">
-            Medical Records: {dog.m_records}
-          </h2>
+        <div className="flex mb-4 items-center">
+          <FaBirthdayCake className="w-8 h-8 mr-4" />
+          <div>
+            <div className="text-sm">Birthday</div>
+            <div className="text-2xl font-semibold">{dog.date}</div>
+          </div>
         </div>
-        <div className="flex mb-4">
-          <Image
-            src={imgIcon}
-            alt="Medical Records"
-            className="w-8 h-8 object-cover mr-2"
-          />
-          <p className="text-base text-gray-600 mb-4">Date: {dog.date}</p>
+        <div className="flex mb-4 items-center">
+          <BsFillFileEarmarkMedicalFill className="w-8 h-8 mr-4" />
+          <div>
+            <div className="text-sm">Medical Records</div>
+            <div className="text-2xl font-semibold">{dog.m_records}</div>
+          </div>
         </div>
-        <div className="flex">
-          <Image
-            src={imgIcon}
-            alt="Medical Records"
-            className="w-8 h-8 object-cover mr-2"
-          />
-          <p className="text-base text-gray-600">
-            Issuance Date: {dog.issuanceDate}
-          </p>
+        <div className="flex items-center">
+          <GoIssueClosed className="w-8 h-8 mr-4" />
+          <div>
+            <div className="text-sm">Issuance Date</div>
+            <div className="text-2xl font-semibold">{dog.issuanceDate}</div>
+          </div>
         </div>
-        <div className="self-end mt-4">
+        <div className="flex justify-between mt-10">
+          <Link href="/adopts">
+            <AiOutlineLeft className="w-10 h-10 text-gray-500" />
+          </Link>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white text-xs py-1 px-1 rounded"
+            className="px-6 py-2 border border-blue-300 text-blue-400 font-semibold text-lg rounded-lg"
             onClick={open}
           >
             Adopt

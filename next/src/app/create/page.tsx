@@ -50,7 +50,7 @@ export default function Create() {
                 });
             }}
           >
-            <div className="my-6 w-full border border-gray-300 py-2 px-4 rounded-md">
+            <div className="w-full border border-gray-300 py-2 px-4 rounded-md">
               <input
                 type="text"
                 name="title"
@@ -58,7 +58,7 @@ export default function Create() {
                 className="w-full"
               />
             </div>
-            <div className="mt-8 border border-gray-300 py-2 px-4 rounded-md">
+            <div className="mt-6 border border-gray-300 py-2 px-4 rounded-md">
               <textarea
                 name="contents"
                 placeholder="contents"
@@ -67,11 +67,11 @@ export default function Create() {
             </div>
             <div>
               <button type="submit" className="absolute bottom-28 right-14">
-                <AiFillEdit className="w-8 h-8" />
+                <AiFillEdit className="w-6 h-6 font-light text-gray-600" />
               </button>
             </div>
             <Link href={`/community`}>
-              <GiCancel className="absolute bottom-28 right-4 w-8 h-8" />
+              <GiCancel className="absolute bottom-28 right-4 w-6 h-6 font-thin text-gray-600" />
             </Link>
           </form>
         </div>
