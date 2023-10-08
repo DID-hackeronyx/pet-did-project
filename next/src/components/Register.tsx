@@ -6,7 +6,7 @@ import Image from "next/image";
 import img from "../../public/images/coco.png";
 import imgIcon from "../../public/images/pet-icon.png";
 
-const Register = () => {
+const Register = ({ selectedImage }) => {
   // 상태(State) 정의
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -61,7 +61,7 @@ const Register = () => {
   return (
     <div className="flex flex-col items-start">
       <div className="flex ml-10 mb-4">
-        <Image src={img} alt="plusImage" width={192} height={192} />
+        <Image src={selectedImage} alt="plusImage" width={192} height={192} />
       </div>
       {/* {vcName && <p>Name from VC: {vcName}</p>} */}
       <div className="flex mb-4">
