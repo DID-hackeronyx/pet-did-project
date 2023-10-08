@@ -9,45 +9,44 @@ import { AppContext } from "../layout";
 import axios from "axios";
 
 const Login = () => {
-  
-  const { account, setAccount ,web3 } = useContext(AppContext);
+  const { account, setAccount, web3 } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
 
-  const gotoMain = async() => {
-
+  const gotoMain = async () => {
     try {
-
-      const id = session?.user.id ;
-      const response = await axios.get( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user?token=${id}` );
+      const id = session?.user.id;
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/user?token=${id}`
+      );
       // console.log( response.data.ok ) ;
 
-      if( response.data.ok ){
-        setAccount( response.data.user ) ;
+      if (response.data.ok) {
+        setAccount(response.data.user);
         router.push("/main");
       }
 
       const newAccount = web3.eth.accounts.create();
-      const user = await axios.post( `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
-      {
-        unique_key : id,
-        pvk :  newAccount.privateKey ,
-        name : id
-      }
-       );
+      const user = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/user`,
+        {
+          unique_key: id,
+          pvk: newAccount.privateKey,
+          name: id,
+        }
+      );
 
-      setAccount( user.data.user ) ;
+      setAccount(user.data.user);
       router.push("/main");
     } catch (error) {
       console.error(error);
     }
-    
   };
 
   // 로그인 정보 있으면 바로 Main페이지로 이동
   useEffect(() => {
-    if( session ) gotoMain();
+    if (session) gotoMain();
   }, [session]);
 
   return (
