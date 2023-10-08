@@ -2,15 +2,14 @@ import BackButton from "@/components/BackButton";
 import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { AiFillEdit } from "react-icons/ai";
+import { useRouter } from "next/router";
+import Control from "./Control";
 
 export default async function Read(props: any) {
   const resp = await fetch(`http://localhost:9999/topics/${props.params.id}`, {
     cache: "no-store",
   });
   const topic = await resp.json();
-
-  console.log(topic);
 
   return (
     <>
@@ -25,11 +24,7 @@ export default async function Read(props: any) {
           </div>
         </div>
       </div>
-      <Link href={`/update/${topic.id}`}>
-        <button className="absolute bottom-28 right-4">
-          <AiFillEdit className="w-6 h-6" />
-        </button>
-      </Link>
+      <Control />
       <Banner />
     </>
   );

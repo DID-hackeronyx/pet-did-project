@@ -41,7 +41,7 @@ const Community = async () => {
               return (
                 <li className="my-6 text-xl font-medium">
                   <Link href={`/read/${topic.id}`}>
-                    {truncateText(topic.title, 30)}
+                    {truncateText(topic.title, 25)}
                   </Link>
                 </li>
               );

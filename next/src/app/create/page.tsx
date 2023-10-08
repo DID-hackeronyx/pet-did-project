@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AiFillEdit } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
 
 export default function Create() {
   const router = useRouter();
@@ -64,10 +65,13 @@ export default function Create() {
               />
             </div>
             <div>
-              <button type="submit" className="absolute bottom-28 right-4">
+              <button type="submit" className="absolute bottom-28 right-14">
                 <AiFillEdit className="w-8 h-8" />
               </button>
             </div>
+            <Link href={`/community`}>
+              <GiCancel className="absolute bottom-28 right-4 w-8 h-8" />
+            </Link>
           </form>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
 
 export default function Update() {
   const [title, setTitle] = useState("");
@@ -88,9 +88,12 @@ export default function Update() {
               <input
                 type="submit"
                 value="Edit"
-                className="absolute bottom-28 right-4 flex justify-end border border-gray-400 py-2 px-4 rounded-xl"
+                className="absolute bottom-28 right-14 flex justify-end border border-gray-400 py-2 px-4 rounded-xl"
               />
             </div>
+            <Link href={`/read/${id}`}>
+              <GiCancel className="absolute bottom-28 right-4 w-8 h-8" />
+            </Link>
           </form>
         </div>
       </div>
