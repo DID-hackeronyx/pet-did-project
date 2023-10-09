@@ -43,7 +43,7 @@ const PetDetailsPage = () => {
           {data?.name} Info
           </div>
         </div>
-        {data ? <PetDetails dog={data} url={pet.image_Url} /> : <p>Loading...</p>}
+        {data ? <PetDetails vc={data} dog={pet} /> : <p>Loading...</p>}
       </div>
     </>
   );
