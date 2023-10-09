@@ -27,7 +27,9 @@ const PetDetails = ({ vc , dog }) => {
   const confirm = async() => {
     console.log("confirm clicked");
 
-    const response = await axios.get(
+    console.log( dog , vc , account ) ;
+
+    const response = await axios.put(
       `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet/` ,
       {
         id : dog.id ,
