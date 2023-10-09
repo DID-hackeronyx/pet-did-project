@@ -2,6 +2,10 @@
 
 ## dApp Introduction
 
+GM to all the pet lovers! 
+TrustPet is a groundbreaking decentralized platform, leveraging the prowess of Digital-Identification (DID) and Paymaster features to revolutionize the pet adoption landscape. The platform aims to instill unparalleled trust and privacy in the pet adoption process, ensuring that adopters and pet owners can engage in cost-effective and trustworthy transactions.
+
+
 ## :hammer: Built With
 
 This application was created using the following libraries and frameworks.
