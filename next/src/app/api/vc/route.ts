@@ -54,7 +54,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     try {
 
       const { did , name , r_date , m_records , petId } = await req.json();
-   // console.log( did , name , date , m_records ) ;
+   console.log( did , name , r_date , m_records ) ;
         
     const didEthr = new EthrDIDMethod(ethrProvider);
 
@@ -110,6 +110,8 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
       credentialType,
       additionalParams
     );
+    
+    console.log(vc.id);
 
     // model Vc{
     //   id              Int       @default(autoincrement()) @id
@@ -125,17 +127,17 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     //   did             String       
     // }
 
-  //   const user = await prisma.vc.create({
-  //     data:{
-  //     petId ,
-  //     name,
-  //     r_date ,
-  //     m_records , 
-  //     did : vc.did ,
-  //     holderdid : did , 
-  //     issuerdid : issuerDidWithKeys ,
-  //   }
-  // });
+    const user = await prisma.vc.create({
+      data:{
+      petId ,
+      name,
+      r_date ,
+      m_records , 
+      did : vc.id ,
+      holderdid : did , 
+      issuerdid : issuerDidWithKeys ,
+    }
+  });
 
     }
     return NextResponse.json({ 
