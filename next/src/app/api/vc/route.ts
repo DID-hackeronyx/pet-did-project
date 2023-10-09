@@ -53,7 +53,7 @@ export const GET = async (req, res) => {
 export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     try {
 
-    const { did , name , date , m_records } = await req.json();
+      const { did , name , r_date , m_records , petId } = await req.json();
    // console.log( did , name , date , m_records ) ;
         
     const didEthr = new EthrDIDMethod(ethrProvider);
@@ -71,7 +71,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
   const subjectData: Object = {
     name ,
     m_records ,
-    r_date : date ,
+    r_date ,
   };
 
   //Setting an expiration data parameter for the VC
@@ -110,6 +110,32 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
       credentialType,
       additionalParams
     );
+
+    // model Vc{
+    //   id              Int       @default(autoincrement()) @id
+    //   createdAt       DateTime  @default(now())
+    //   updatedAt       DateTime  @updatedAt
+    //   petId           Int
+    //   pet             Pet      @relation(fields: [petId], references: [id])
+    //   holderdid       String
+    //   issuerdid       String
+    //   name            String
+    //   r_date          String
+    //   m_records       String
+    //   did             String       
+    // }
+
+  //   const user = await prisma.vc.create({
+  //     data:{
+  //     petId ,
+  //     name,
+  //     r_date ,
+  //     m_records , 
+  //     did : vc.did ,
+  //     holderdid : did , 
+  //     issuerdid : issuerDidWithKeys ,
+  //   }
+  // });
 
     }
     return NextResponse.json({ 

@@ -52,6 +52,8 @@ model Vc{
   updatedAt       DateTime  @updatedAt
   petId           Int
   pet             Pet      @relation(fields: [petId], references: [id])
+  holderdid       String
+  issuerdid       String
   name            String
   r_date          String
   m_records       String

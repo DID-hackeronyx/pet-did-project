@@ -12,7 +12,7 @@ import MypetModal from "@/components/MypetModal";
 
 const Main = () => {
   const { account, setAccount, web3 } = useContext(AppContext);
-  const [mypetInfo, setMypetInfo] = useState([{}]);
+  const [mypetInfo, setMypetInfo] = useState([]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalIndex, setModalIndex] = useState("");
@@ -27,13 +27,18 @@ const Main = () => {
   };
 
   const getMypet = async () => {
-    const response: any = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet?userId=${account.id}`
-    );
-    setMypetInfo(response.data.response);
+    try {
+      const response: any = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet?userId=${account.id}`
+      );
+      setMypetInfo(response.data.response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
+    console.log(account);
     if (account) {
       getMypet();
     }
@@ -48,19 +53,19 @@ const Main = () => {
           Manage your pets with ZK-Paw
         </div>
         <div className="bg-white rounded-md grid grid-cols-2 gap-4 my-5 p-4">
-          {mypetInfo?.map((pet, index) => (
-            <button onClick={() => open(index)}>
-              {" "}
-              {/* 클릭 시 openModal 함수 호출 */}
-              <Image
-                key={index}
-                src={pet.image_Url}
-                width={200}
-                height={200}
-                className="shadow-lg"
-              />
-            </button>
-          ))}
+          {mypetInfo &&
+            mypetInfo?.map((pet, index) => (
+              <button onClick={() => open(index)} key={index}>
+                {/* 클릭 시 openModal 함수 호출 */}
+                <Image
+                  key={index}
+                  src={pet.image_Url}
+                  width={200}
+                  height={200}
+                  className="shadow-lg"
+                />
+              </button>
+            ))}
 
           {isOpen && (
             <MypetModal

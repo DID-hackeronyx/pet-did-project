@@ -104,32 +104,26 @@ export const PATCH = async (req, res) => {
   }
 };
 
-
-// 함수명이 해당하는 요청으로 정해져있음. (POST), DB와 상호작용하니 비동기로 해야 함
-// 응답 할 때 까지 기다려서 응답이 꼭 있어야 함.
 export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // json에 body가 담겨있음
 
-    const { auth, pvk, nickname, login_type } = await req.json();
-    // console.log(auth, pvk, nickname, pvk);
+    const { unique_key , pvk , did , userId , image_Url } = await req.json();
 
-    // upsert = update + create (처음 들어오면 만들고 있으면 업데이트)
-    const user = await prisma.user.upsert({
-      where: { auth },
-      update: {},
-      create: {
-        login_type,
-        address: pvk,
-        nickname,
-        auth,
-        count: 0,
-      },
+    if( !unique_key || !pvk || !did || !userId || !image_Url ) return NextResponse.json( { ok : false } )
+
+    const user = await prisma.pet.create({
+        data:{
+        pvk ,
+        unique_key,
+        userId ,
+        did , 
+        isListing : false ,
+        image_Url , 
+      }
     });
 
-    // console.log()는 npm run dev 했던 터미널에서 확인 가능
-
-    return NextResponse.json({ ok: true, user });
+    return NextResponse.json({ user });
   } catch (error) {
     console.error(error);
   }
