@@ -189,12 +189,13 @@ const Ipfs = () => {
           
         );
 
+        console.log('vc ok') ;
+
         // db : vc 등록    contract : vc 등록
 
         // console.log(response) ;
 
       } catch (error) {
-        console.log("Error sending File to IPFS: ");
         console.log(error);
       }
     }

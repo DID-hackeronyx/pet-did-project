@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["github.com"], // 이미지를 호스팅하는 도메인을 여기에 추가
+    domains: ["github.com" , "bronze-efficient-narwhal-465.mypinata.cloud"], // 이미지를 호스팅하는 도메인을 여기에 추가
   },
   reactStrictMode: false,
   webpack: (config, { isServer }) => {
