@@ -47,8 +47,8 @@ const MypetModal = ({ title, message, close, index }: Props) => {
   const changeListingValue = async () => {
     try {
       const data = {
-        id: mypetInfo.id,
-        userId: userResponse.userId,
+        id: userResponse.id,
+        userId: account.id,
       };
 
       const response = await axios.patch(

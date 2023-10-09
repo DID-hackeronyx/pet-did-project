@@ -1,70 +1,59 @@
 // express 역할
-import prisma from '../../lib/prisma';
+import prisma from "../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 
 export const GET = async (req, res) => {
   try {
-
     const { searchParams } = new URL(req.url);
     let did = searchParams.get("did");
     let id = Number(searchParams.get("id"));
-    let userId = Number(searchParams.get("userId")) ;
-    let unique_key = searchParams.get("unique_key") ;
-    let isListing = searchParams.get("isListing") ;
-    let response ;
+    let userId = Number(searchParams.get("userId"));
+    let unique_key = searchParams.get("unique_key");
+    let isListing = searchParams.get("isListing");
+    let response;
 
-    if( id ) {
-
+    if (id) {
       response = await prisma.pet.findFirst({
         where: {
-          id ,
+          id,
         },
       });
-
     }
 
-    if( isListing ) {
-
-      const bool_data = ( isListing == 't' ? true : false ) ;
+    if (isListing) {
+      const bool_data = isListing == "t" ? true : false;
 
       response = await prisma.pet.findMany({
         where: {
-          isListing : bool_data
+          isListing: bool_data,
         },
       });
-
     }
     // console.log( token ) ;
 
-    if( userId ){
-
-    response = await prisma.pet.findMany({
-      where: {
-        userId ,
-      },
-    });
-
-    }
-
-    if( did ) {
-
-      response = await prisma.pet.findFirst({
+    if (userId) {
+      response = await prisma.pet.findMany({
         where: {
-          did ,
+          userId,
         },
       });
-
     }
 
-    if( unique_key ) {
-
+    if (did) {
       response = await prisma.pet.findFirst({
         where: {
-          unique_key ,
+          did,
         },
       });
+    }
 
+    if (unique_key) {
+      response = await prisma.pet.findFirst({
+        where: {
+          unique_key,
+        },
+      });
     }
 
     return NextResponse.json({
@@ -77,39 +66,39 @@ export const GET = async (req, res) => {
 
 export const PATCH = async (req, res) => {
   try {
-    
-    const { id , userId } = await req.json();
-    
-    const response = await prisma.pet.findFirst({
-      where : {
-        id , 
-      }
-    })
+    const { id, userId } = await req.json();
+    console.log(id, userId);
 
-    if( !response ) {
-      
+    const response = await prisma.pet.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!response) {
       return NextResponse.json({
-        ok : false ,
+        ok: false,
       });
     }
-    
-    if( response.userId != userId ){
+
+    console.log(response.userId);
+    if (response.userId != userId) {
       return NextResponse.json({
-        ok : false ,
+        ok: false,
       });
     }
 
     const update = await prisma.pet.update({
-      where : {
+      where: {
         id,
       },
       data: {
-        isListing: !response.isListing // isListing을 반전시켜 업데이트
-      }
-    })
+        isListing: !response.isListing, // isListing을 반전시켜 업데이트
+      },
+    });
 
     return NextResponse.json({
-      ok : true ,
+      ok: true,
     });
   } catch (error) {
     console.error(error);
@@ -120,19 +109,20 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // json에 body가 담겨있음
 
-    const { unique_key , pvk , did , userId , image_Url } = await req.json();
+    const { unique_key, pvk, did, userId, image_Url } = await req.json();
 
-    if( !unique_key || !pvk || !did || !userId || !image_Url ) return NextResponse.json( { ok : false } )
+    if (!unique_key || !pvk || !did || !userId || !image_Url)
+      return NextResponse.json({ ok: false });
 
     const user = await prisma.pet.create({
-        data:{
-        pvk ,
+      data: {
+        pvk,
         unique_key,
-        userId ,
-        did , 
-        isListing : false ,
-        image_Url , 
-      }
+        userId,
+        did,
+        isListing: false,
+        image_Url,
+      },
     });
 
     return NextResponse.json({ user });
@@ -143,40 +133,32 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export const PUT = async (req, res) => {
   try {
-    
-    const { id , userId } = await req.json();
-    
+    const { id, userId } = await req.json();
+    console.log(id, userId);
     const response = await prisma.pet.findFirst({
-      where : {
-        id , 
-      }
-    })
+      where: {
+        id,
+      },
+    });
 
-    if( !response ) {
-      
+    if (!response) {
       return NextResponse.json({
-        ok : false ,
-      });
-    }
-    
-    if( response.userId != userId ){
-      return NextResponse.json({
-        ok : false ,
+        ok: false,
       });
     }
 
     const update = await prisma.pet.update({
-      where : {
+      where: {
         id,
       },
       data: {
-        userId ,
-        isListing: false // isListing을 반전시켜 업데이트
-      }
-    })
+        userId,
+        isListing: false, // isListing을 반전시켜 업데이트
+      },
+    });
 
     return NextResponse.json({
-      ok : true ,
+      ok: true,
     });
   } catch (error) {
     console.error(error);
