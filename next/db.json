@@ -34,6 +34,13 @@
       "time": "2023-10-08",
       "contents": "I live in London. I have two dogs. Would you like to walk the dogs?",
       "id": 8
+    },
+    {
+      "view": 1,
+      "title": "Share my tips",
+      "time": "2023-10-09",
+      "contents": "'Kai' this brand toy is very safe for your dog.",
+      "id": 9
     }
   ],
   "posts": [
