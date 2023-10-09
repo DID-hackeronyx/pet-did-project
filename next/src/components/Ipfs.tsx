@@ -1,30 +1,31 @@
-"use client";
-import { useContext, useEffect, useState } from "react";
-import React from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { IBundler, Bundler } from "@biconomy/bundler";
+'use client';
+import { useContext, useEffect, useState } from 'react';
+import React from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { IBundler, Bundler } from '@biconomy/bundler';
 import {
   BiconomySmartAccountV2,
   DEFAULT_ENTRYPOINT_ADDRESS,
-} from "@biconomy/account";
+} from '@biconomy/account';
 import {
   IPaymaster,
   BiconomyPaymaster,
   IHybridPaymaster,
   SponsorUserOperationDto,
   PaymasterMode,
-} from "@biconomy/paymaster";
+} from '@biconomy/paymaster';
 import {
   ECDSAOwnershipValidationModule,
   DEFAULT_ECDSA_OWNERSHIP_MODULE,
-} from "@biconomy/modules";
-import { ethers } from "ethers";
-import { AppContext } from "@/app/layout";
-import { BiSolidDog } from "react-icons/bi";
-import { FaBirthdayCake } from "react-icons/fa";
-import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
-import LoadingModal from "./LoadingModal";
+} from '@biconomy/modules';
+import { ethers } from 'ethers';
+import { AppContext } from '@/app/layout';
+import { BiSolidDog } from 'react-icons/bi';
+import { FaBirthdayCake } from 'react-icons/fa';
+import { BsFillFileEarmarkMedicalFill } from 'react-icons/bs';
+import abi from '../../abi.json';
+import LoadingModal from './LoadingModal';
 
 // import abi from './abi.json' ;
 
@@ -69,9 +70,9 @@ import LoadingModal from "./LoadingModal";
 const Ipfs = () => {
   const [imageFile, setImageFile] = useState<File>();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [name, setName] = useState("");
-  const [m_records, setM_records] = useState("");
-  const [r_date, setR_date] = useState("");
+  const [name, setName] = useState('');
+  const [m_records, setM_records] = useState('');
+  const [r_date, setR_date] = useState('');
   const { account, setAccount, web3 } = useContext(AppContext);
 
   const router = useRouter();
@@ -114,35 +115,35 @@ const Ipfs = () => {
     if (imageFile) {
       e.preventDefault();
       try {
-        console.log("start");
+        console.log('start');
         setIsOpen(true);
         const imageFormData = new FormData();
 
-        imageFormData.append("file", imageFile);
+        imageFormData.append('file', imageFile);
         imageFormData.append(
-          "pinataMetadata",
+          'pinataMetadata',
           JSON.stringify({
             name: `1_image`,
           })
         );
         imageFormData.append(
-          "pinataOptions",
+          'pinataOptions',
           JSON.stringify({
             cidVersion: 0,
           })
         );
         const imageRes = await axios.post(
-          "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          'https://api.pinata.cloud/pinning/pinFileToIPFS',
           imageFormData,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_KEY}`,
             },
           }
         );
 
-        console.log("2");
+        console.log('2');
 
         let image_url = `https://${process.env.NEXT_PUBLIC_PINATA_URL}/ipfs/${imageRes.data.IpfsHash}`;
         //Take a look at your Pinata Pinned section, you will see a new file added to you list.
@@ -159,7 +160,7 @@ const Ipfs = () => {
           paymasterUrl: process.env.NEXT_PUBLIC_PAYMASTER_URL,
         });
 
-        console.log("check bundler paymaster");
+        console.log('check bundler paymaster');
         const newAccount = web3.eth.accounts.create();
         const privateKey = newAccount.privateKey;
         const provider = new ethers.providers.JsonRpcProvider(
@@ -180,9 +181,50 @@ const Ipfs = () => {
           defaultValidationModule: ownerShipModule, // either ECDSA or Multi chain to start
           activeValidationModule: ownerShipModule, // either ECDSA or Multi chain to start
         });
-        let address = "did:ethr:maticnum:";
-        address = address + (await smartAccount.getAccountAddress());
+        let address = 'did:ethr:maticnum:';
+        let add = await smartAccount.getAccountAddress();
+        address = address + add;
         // pvk , unique_key , did , userId
+
+        const contract = new ethers.Contract(
+          process.env.NEXT_PUBLIC_Registry_ADD,
+          abi,
+          provider
+        );
+
+        // use the ethers populateTransaction method to create a raw transaction
+        const minTx = await contract.populateTransaction.register_vc(
+          'ethr:maticnum',
+          add,
+          'temp'
+        );
+        console.log('minTx : ', minTx);
+        const tx1 = {
+          to: process.env.NEXT_PUBLIC_Registry_ADD,
+          data: minTx.data,
+        };
+        let userOp = await smartAccount.buildUserOp([tx1]);
+        console.log('userOP : ', userOp);
+        const biconomyPaymaster = smartAccount.paymaster as IHybridPaymaster<
+          SponsorUserOperationDto
+        >;
+        let paymasterServiceData: SponsorUserOperationDto = {
+          mode: PaymasterMode.SPONSORED,
+          smartAccountInfo: {
+            name: 'BICONOMY',
+            version: '2.0.0',
+          },
+        };
+        const paymasterAndDataResponse = await biconomyPaymaster.getPaymasterAndData(
+          userOp,
+          paymasterServiceData
+        );
+
+        userOp.paymasterAndData = paymasterAndDataResponse.paymasterAndData;
+        const userOpResponse = await smartAccount.sendUserOp(userOp);
+        console.log('userOpHash', userOpResponse);
+        const { receipt } = await userOpResponse.wait(1);
+        console.log('txHash', receipt.transactionHash);
 
         if (account) {
           let response: any = await axios.post(
@@ -196,7 +238,7 @@ const Ipfs = () => {
             }
           );
 
-          console.log("pet ok");
+          console.log('pet ok');
 
           // console.log( did , name , date , m_records ) ;
           console.log(response.data);
@@ -212,14 +254,14 @@ const Ipfs = () => {
             }
           );
 
-          console.log("vc ok");
+          console.log('vc ok');
           close();
 
           // db : vc 등록    contract : vc 등록
 
           // console.log(response) ;
 
-          router.push("/main");
+          router.push('/main');
         }
       } catch (error) {
         console.log(error);

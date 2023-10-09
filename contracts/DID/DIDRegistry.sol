@@ -33,12 +33,12 @@ contract DIDRegistryOnChain is Ownable{
    * @param _method ID domain
    * @param _id ID address
    */
-  function register_vc(string calldata _method, address _id , bytes32 record ) issuercheck( msg.sender ) external {
+  function register_vc(string calldata _method, address _id , bytes32 record )  external {
     bytes32 hash = keccak256(abi.encodePacked('did:', _method, ':', _id));
     registry_vc[ hash ].hashdata = record ;
     registry_vc[ hash ].isEnable = true ;
   }
-  function deactivate_vc(string calldata _method, address _id) issuercheck( msg.sender ) external {
+  function deactivate_vc(string calldata _method, address _id) external {
     bytes32 hash = keccak256(abi.encodePacked('did:', _method, ':', _id));
     registry_vc[ hash ].isEnable = false ;
   }
@@ -48,12 +48,12 @@ contract DIDRegistryOnChain is Ownable{
      status = registry_vc[ hash ].isEnable ;
   }
 
-  function register_subject(string calldata _method, address _id ) issuercheck( msg.sender ) external {
+  function register_subject(string calldata _method, address _id )  external {
     bytes32 hash = keccak256(abi.encodePacked('did:', _method, ':', _id));
     registry_subject[ hash ] = true ;
   }
 
-  function deactivate_subject(string calldata _method, address _id) issuercheck( msg.sender ) external {
+  function deactivate_subject(string calldata _method, address _id)  external {
     bytes32 hash = keccak256(abi.encodePacked('did:', _method, ':', _id));
     registry_subject[ hash ] = false ;
   }
