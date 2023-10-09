@@ -128,3 +128,45 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     console.error(error);
   }
 };
+
+export const PUT = async (req, res) => {
+  try {
+    
+    const { id , userId } = await req.json();
+    
+    const response = await prisma.pet.findFirst({
+      where : {
+        id , 
+      }
+    })
+
+    if( !response ) {
+      
+      return NextResponse.json({
+        ok : false ,
+      });
+    }
+    
+    if( response.userId != userId ){
+      return NextResponse.json({
+        ok : false ,
+      });
+    }
+
+    const update = await prisma.pet.update({
+      where : {
+        id,
+      },
+      data: {
+        userId ,
+        isListing: false // isListing을 반전시켜 업데이트
+      }
+    })
+
+    return NextResponse.json({
+      ok : true ,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
