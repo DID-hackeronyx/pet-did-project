@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import imgIcon from "../../public/images/pet-icon.png";
 import Image from "next/image";
 import Modal from "./Modal";
@@ -10,7 +10,7 @@ import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
 import Link from "next/link";
 
-const PetDetails = ({ dog }) => {
+const PetDetails = ({ dog , url }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const open = () => {
     setIsOpen(true);
@@ -23,29 +23,34 @@ const PetDetails = ({ dog }) => {
     setIsOpen(false);
   };
 
+useEffect( () => {console.log( url ) ;} ,[]) ;
+  
+
   return (
     <div className="bg-white p-6 rounded-md shadow-md relative">
       <div className="flex flex-col">
         <div className="flex justify-center items-center mb-6">
+          { url && 
           <Image
-            src={`/images/${dog.name}.png`}
+            src={`${url}`}
             alt={dog.name}
             width={192}
             height={192}
           />
+        }
         </div>
         <div className="flex mb-4 items-center">
           <BiSolidDog className="w-8 h-8 mr-4" />
           <div className="flex flex-col">
             <div className="text-sm">Name</div>
-            <div className="text-2xl font-semibold">{dog.name}</div>
+            <div className="text-2xl font-semibold">{dog?.name}</div>
           </div>
         </div>
         <div className="flex mb-4 items-center">
           <FaBirthdayCake className="w-8 h-8 mr-4" />
           <div>
             <div className="text-sm">Birthday</div>
-            <div className="text-2xl font-semibold">{dog.date}</div>
+            <div className="text-2xl font-semibold">{dog?.r_date}</div>
           </div>
         </div>
         <div className="flex mb-4 items-center">

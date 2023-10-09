@@ -23,6 +23,7 @@ export const GET = async (req, res) => {
 
     const { searchParams } = new URL(req.url);
     let petId = Number(searchParams.get("petId") ) ;
+    // console.log(petId , typeof petId ) ;
 
     const response = await prisma.vc.findFirst({
       where: {
@@ -54,7 +55,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     try {
 
       const { did , name , r_date , m_records , petId } = await req.json();
-   console.log( did , name , r_date , m_records ) ;
+  //  console.log( did , name , r_date , m_records ) ;
         
     const didEthr = new EthrDIDMethod(ethrProvider);
 
@@ -111,7 +112,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
       additionalParams
     );
     
-    console.log(vc.id);
+    // console.log(vc.id);
 
     // model Vc{
     //   id              Int       @default(autoincrement()) @id
@@ -127,15 +128,18 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     //   did             String       
     // }
 
+    // console.log( petId , typeof petId ) ;
+
     const user = await prisma.vc.create({
-      data:{
+      data:
+      {
       petId ,
       name,
       r_date ,
       m_records , 
       did : vc.id ,
       holderdid : did , 
-      issuerdid : issuerDidWithKeys ,
+      issuerdid : issuerDidWithKeys.did ,
     }
   });
 
