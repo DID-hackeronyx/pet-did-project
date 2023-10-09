@@ -90,7 +90,9 @@ const MypetModal = ({ title, message, close, index }: Props) => {
               <div className="font-bold text-2xl">{mypetInfo.name}</div>
               <div className="flex flex-col my-4">
                 <div className="font-bold text-xl">DID</div>
-                <div className="text-gray-600">{mypetInfo.did}</div>
+                <div className="text-gray-600 text-xs overflow-auto">
+                  {mypetInfo.did}
+                </div>
               </div>
               <div className="flex flex-col my-4">
                 <div className="font-bold text-xl">Birthday</div>

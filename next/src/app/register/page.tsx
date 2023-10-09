@@ -9,15 +9,20 @@ import Image from "next/image";
 import Ipfs from "@/components/Ipfs";
 
 const Page = () => {
-
   return (
-      <div>
-        <div className="min-h-screen flex flex-col items-center">
-          <ContainerHeader title="Register" />
-          <Ipfs />     
+    <>
+      <div className="relative min-h-screen flex flex-col w-full px-4">
+        <Header />
+        <div className="mt-4 flex flex-col">
+          <div className="font-bold text-xl">Regist</div>
+          <div className="text-gray-400 text-sm">
+            Manage your get after registeration
+          </div>
         </div>
+        <Ipfs />
       </div>
-    
+      <Banner />
+    </>
   );
 };
 

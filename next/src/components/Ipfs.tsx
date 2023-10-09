@@ -21,6 +21,11 @@ import {
 } from "@biconomy/modules";
 import { ethers } from "ethers";
 import { AppContext } from "@/app/layout";
+import { BiSolidDog } from "react-icons/bi";
+import { FaBirthdayCake } from "react-icons/fa";
+import { BsFillFileEarmarkMedicalFill } from "react-icons/bs";
+import LoadingModal from "./LoadingModal";
+
 // import abi from './abi.json' ;
 
 // const nftAddress = "0x202118c90ad372C50aCD43edA9A1Fa3b70b9e065"
@@ -71,6 +76,14 @@ const Ipfs = () => {
 
   const router = useRouter();
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const open = () => {
+    setIsOpen(true);
+  };
+  const close = () => {
+    setIsOpen(false);
+  };
+
   const onChangeName = (e) => {
     setName(e.target.value);
   };
@@ -102,6 +115,7 @@ const Ipfs = () => {
       e.preventDefault();
       try {
         console.log("start");
+        setIsOpen(true);
         const imageFormData = new FormData();
 
         imageFormData.append("file", imageFile);
@@ -170,41 +184,42 @@ const Ipfs = () => {
         address = address + (await smartAccount.getAccountAddress());
         // pvk , unique_key , did , userId
 
-        if( account ) {
+        if (account) {
+          let response: any = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet`,
+            {
+              pvk: privateKey,
+              unique_key: imageFile.name,
+              did: address,
+              userId: account.id,
+              image_Url: image_url,
+            }
+          );
 
-        let response: any = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet`,
-          {
-            pvk: privateKey,
-            unique_key: imageFile.name,
-            did: address,
-            userId: account.id,
-            image_Url: image_url,
-          }
-        );
+          console.log("pet ok");
 
-        console.log("pet ok");
+          // console.log( did , name , date , m_records ) ;
+          console.log(response.data);
 
-        // console.log( did , name , date , m_records ) ;
-        console.log(response.data) ;
+          const response2 = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACK_URL}/api/vc`,
+            {
+              name,
+              m_records,
+              r_date,
+              did: address,
+              petId: Number(response.data.user.id),
+            }
+          );
 
-        const response2 = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK_URL}/api/vc`,
-          {
-            name,
-            m_records,
-            r_date,
-            did: address,
-            petId: Number(response.data.user.id),
-          }
-        );
+          console.log("vc ok");
+          close();
 
-        console.log("vc ok");
+          // db : vc 등록    contract : vc 등록
 
-        // db : vc 등록    contract : vc 등록
+          // console.log(response) ;
 
-        // console.log(response) ;
-
+          router.push("/main");
         }
       } catch (error) {
         console.log(error);
@@ -215,23 +230,75 @@ const Ipfs = () => {
   return (
     <form onSubmit={sendFileToIPFS}>
       {!imageFile && (
-        <input id="imageFile" type="file" onChange={onChangeImageFile} />
-      )}
-
-      {imageFile && (
-        <div>
-          <img src={selectedImage} alt="Uploaded" />
-
-          <label htmlFor="name">Name:</label>
-          <input id="name" type="text" onChange={onChangeName} />
-          <br />
-          <label htmlFor="r_date">birth_date</label>
-          <input id="r_date" type="text" onChange={onChangeR_date} />
-          <label htmlFor="m_records">medical_records</label>
-          <input id="m_records" type="text" onChange={onChangeM_records} />
+        <div className="flex flex-col justify-center items-center">
+          <div className="flex justify-center items-center w-72 h-72 border border-gray-400 rounded-md my-12">
+            <label className="text-lg font-semibold text-gray-400">
+              <input
+                id="imageFile"
+                type="file"
+                onChange={onChangeImageFile}
+                className="hidden"
+              />
+              Image Upload
+            </label>
+          </div>
         </div>
       )}
-      <button type="submit">Mint NFT</button>
+      {imageFile && (
+        <div>
+          <div className="flex justify-center items-center my-8">
+            <img src={selectedImage} alt="Uploaded" className="w-64 h-64" />
+          </div>
+          <div className="flex items-center my-4">
+            <label htmlFor="name">
+              <BiSolidDog className="w-8 h-8 mr-4" />
+            </label>
+            <input
+              id="name"
+              type="text"
+              onChange={onChangeName}
+              placeholder="Name"
+              className="text-lg font-semibold w-full border-b-2"
+            />
+          </div>
+          <div className="flex items-center my-4">
+            <label htmlFor="r_date">
+              <FaBirthdayCake className="w-8 h-8 mr-4" />
+            </label>
+            <input
+              id="r_date"
+              type="text"
+              onChange={onChangeR_date}
+              placeholder="Birthdate"
+              className="text-lg font-semibold w-full border-b-2"
+            />
+          </div>
+          <div className="flex items-center my-4">
+            <label htmlFor="m_records">
+              <BsFillFileEarmarkMedicalFill className="w-8 h-8 mr-4" />
+            </label>
+            <input
+              id="m_records"
+              type="text"
+              onChange={onChangeM_records}
+              placeholder="Medical Records"
+              className="text-lg font-semibold w-full border-b-2 h-28"
+            />
+          </div>
+        </div>
+      )}
+      {imageFile && (
+        <div className="flex justify-end my-4">
+          <button
+            type="submit"
+            onClick={open}
+            className="px-6 py-2 border border-blue-300 text-blue-400 font-semibold text-lg rounded-lg"
+          >
+            Regist
+          </button>
+        </div>
+      )}
+      {isOpen && <LoadingModal />}
     </form>
   );
 };

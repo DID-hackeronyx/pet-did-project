@@ -50,7 +50,7 @@ const Main = () => {
         <Header />
         <div className="font-bold text-xl">Your Pets</div>
         <div className="text-gray-400 text-sm">
-          Manage your pets with ZK-Paw
+          Manage your pets with TrustTail
         </div>
         <div className="bg-white rounded-md grid grid-cols-2 gap-4 my-5 p-4">
           {mypetInfo &&
