@@ -4,10 +4,9 @@
 
 ## dApp Introduction
 
-
 ## :hammer: Built With
 
-This application was created using the following libraries and frameworks. 
+This application was created using the following libraries and frameworks.
 
 ### Frontend
 
@@ -62,14 +61,38 @@ prisma, planetscale (If needed to add server)
 
 ## :mag: Features
 
+### Easy Onboarding
 
-### 기능1
+Users can effortlessly log in using their existing social media accounts, eliminating the need for complex Web3 processes like creating crypto wallets or connecting to MetaMask.
 
+### Personal Pet Management
 
+After login, users are directed to the home page, where they can see all the pets they have registered on the app. Each pet's information, such as name, age, and biological data, is readily available.
 
-### 기능2
+### Adoption Marketplace
 
+In the "Adopt" section, users can browse a photo feed of pets available for adoption. Clicking on a pet's photo opens a popup displaying detailed information. Users can apply for adoption directly through the platform.
 
+### Secure On-Chain Transactions
+
+The adoption process is conducted on-chain using cryptocurrencies, reducing the overall cost of adoption. When a user applies for adoption, the previous pet owner accepts the request, and all adoption and commission fees are securely transacted through the platform.
+
+## :mag: App Image 🙈
+
+|                                                                  `Start`                                                                   |                                                                 `Start(2)`                                                                 |                                                                    `Start(3)`                                                                    |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![](https://media.discordapp.net/attachments/1151833522437365794/1160773865341988905/screencapture-localhost-3000-2023-10-09-11_59_21.png) | ![](https://media.discordapp.net/attachments/1151833522437365794/1160773865128075354/screencapture-localhost-3000-2023-10-09-11_59_29.png) | ![](https://media.discordapp.net/attachments/1151833522437365794/1160773864909963344/screencapture-localhost-3000-login-2023-10-09-11_59_44.png) |
+
+|                                                                     `Main`                                                                      |                                                                    `Main(2)`                                                                    |
+| :---------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![](https://media.discordapp.net/attachments/1151833522437365794/1160773864654123129/screencapture-localhost-3000-main-2023-10-09-12_00_12.png) | ![](https://media.discordapp.net/attachments/1151833522437365794/1160773864654123129/screencapture-localhost-3000-main-2023-10-09-12_00_12.png) |
+
+|                                             `Adopt`                                             |                                               `Adopt(2)`                                               |                                              `Adopt(3)`                                               |
+| :---------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| ![](https://media.discordapp.net/attachments/1151833522437365794/1160607371761025124/adopt.png) | ![](https://media.discordapp.net/attachments/1151833522437365794/1160607371484209202/adopt_detail.png) | ![](https://media.discordapp.net/attachments/1151833522437365794/1160607370758586511/adopt_alarm.png) |
+
+---
 
 ## 🎯 Contributing
+
 Contributions are always welcome! Feel free to open any issue or send a pull request.
