@@ -29,9 +29,10 @@ const paymaster: IPaymaster = new BiconomyPaymaster({
   paymasterUrl: 'https://paymaster.biconomy.io/api/v1/80001/lxGpkg8YA.16945486-67f6-4d84-b0f3-a2d908ff0058' 
 })
 
-const privateKey = '0xc05875707bd1f9517cdcacc66ae254910cd8af7f1fd5b1fea40169b4d49f916c';
-const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.infura.io/v3/318af53be76b4bc39a0b3e9f97830a26');
 
+const newAccount = web3.eth.accounts.create();
+const privateKey = newAccount.privateKey ;
+const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_WEB3_PROVIER);
 const signer = new ethers.Wallet(privateKey, provider);
 
 

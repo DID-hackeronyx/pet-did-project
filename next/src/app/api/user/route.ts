@@ -44,7 +44,6 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { unique_key , pvk, name } = await req.json();
 
-    // upsert = update + create (처음 들어오면 만들고 있으면 업데이트)
     const user = await prisma.user.create({
         data:{
         pvk ,

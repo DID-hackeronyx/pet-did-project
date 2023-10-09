@@ -19,7 +19,7 @@ const Login = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/user?token=${id}`
       );
-      // console.log( response.data.ok ) ;
+      console.log( response.data.ok ) ;
 
       if (response.data.ok) {
         setAccount(response.data.user);
