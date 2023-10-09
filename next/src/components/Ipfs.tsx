@@ -170,6 +170,8 @@ const Ipfs = () => {
         address = address + (await smartAccount.getAccountAddress());
         // pvk , unique_key , did , userId
 
+        if( account ) {
+
         let response: any = await axios.post(
           `${process.env.NEXT_PUBLIC_BACK_URL}/api/pet`,
           {
@@ -184,6 +186,7 @@ const Ipfs = () => {
         console.log("pet ok");
 
         // console.log( did , name , date , m_records ) ;
+        console.log(response.data) ;
 
         const response2 = await axios.post(
           `${process.env.NEXT_PUBLIC_BACK_URL}/api/vc`,
@@ -192,7 +195,7 @@ const Ipfs = () => {
             m_records,
             r_date,
             did: address,
-            petId: Number(response.data.id),
+            petId: Number(response.data.user.id),
           }
         );
 
@@ -201,6 +204,8 @@ const Ipfs = () => {
         // db : vc 등록    contract : vc 등록
 
         // console.log(response) ;
+
+        }
       } catch (error) {
         console.log(error);
       }
