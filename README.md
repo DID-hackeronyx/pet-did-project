@@ -1,6 +1,6 @@
 # TrustTail
 
-대표사진
+![](https://cdn.discordapp.com/attachments/897051367238139934/1160801938229690419/image.png?ex=6535fc0c&is=6523870c&hm=482eccbb565cd93c446cb033cfa8dfbc6849e61be75545438a699a77cb113763&)
 
 ## dApp Introduction
 
