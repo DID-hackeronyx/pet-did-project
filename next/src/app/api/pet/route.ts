@@ -8,13 +8,25 @@ export const GET = async (req, res) => {
 
     const { searchParams } = new URL(req.url);
     let did = searchParams.get("did");
+    let id = Number(searchParams.get("id"));
     let userId = Number(searchParams.get("userId")) ;
     let unique_key = searchParams.get("unique_key") ;
     let isListing = searchParams.get("isListing") ;
     let response ;
+
+    if( id ) {
+
+      response = await prisma.pet.findFirst({
+        where: {
+          id ,
+        },
+      });
+
+    }
+
     if( isListing ) {
 
-      const bool_data = isListing == 't' ? true : false ;
+      const bool_data = ( isListing == 't' ? true : false ) ;
 
       response = await prisma.pet.findMany({
         where: {

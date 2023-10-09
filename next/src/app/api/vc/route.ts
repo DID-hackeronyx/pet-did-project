@@ -23,6 +23,7 @@ export const GET = async (req, res) => {
 
     const { searchParams } = new URL(req.url);
     let petId = Number(searchParams.get("petId") ) ;
+    // console.log(petId , typeof petId ) ;
 
     const response = await prisma.vc.findFirst({
       where: {
@@ -111,7 +112,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
       additionalParams
     );
     
-    console.log(vc.id);
+    // console.log(vc.id);
 
     // model Vc{
     //   id              Int       @default(autoincrement()) @id
@@ -127,7 +128,7 @@ export const POST = async (req : NextApiRequest , res : NextApiResponse ) => {
     //   did             String       
     // }
 
-    console.log( petId , typeof petId ) ;
+    // console.log( petId , typeof petId ) ;
 
     const user = await prisma.vc.create({
       data:
