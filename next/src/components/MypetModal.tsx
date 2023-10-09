@@ -67,12 +67,9 @@ const MypetModal = ({ title, message, close, index }: Props) => {
   }, [isListing]);
 
   useEffect(() => {
-    console.log(account);
-    getMypet();
-  }, []);
-
-  useEffect(() => {
-    getMypet();
+    if (account) {
+      getMypet();
+    }
   }, [account]);
 
   return (

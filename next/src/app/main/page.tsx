@@ -44,7 +44,9 @@ const Main = () => {
       <div className="min-h-screen flex flex-col w-full px-4">
         <Header />
         <div className="font-bold text-xl">Your Pets</div>
-        <div className="text-gray-400 text-sm">Lovely your Pets</div>
+        <div className="text-gray-400 text-sm">
+          Manage your pets with ZK-Paw
+        </div>
         <div className="bg-white rounded-md grid grid-cols-2 gap-4 my-5 p-4">
           {mypetInfo?.map((pet, index) => (
             <button onClick={() => open(index)}>
