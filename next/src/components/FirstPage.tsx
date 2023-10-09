@@ -13,7 +13,7 @@ const FirstPage = ({ onClick }: any) => {
         height={20}
         alt="home page img"
       />
-      <div className="text-4xl font-bold ml-3">ZK-PAW</div>
+      <div className="text-4xl font-bold ml-3">TrustTail</div>
     </div>
   );
 };

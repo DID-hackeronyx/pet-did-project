@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import img from "../../public/images/pet-icon.png";
 import Image from "next/image";
+// import { useSession } from "next-auth/react";
 
 const Header = () => {
   return (
@@ -9,10 +10,11 @@ const Header = () => {
       <Link href="/main">
         <div className="flex items-center justify-center">
           <Image src={img} width={35} height={35} alt="home page img" />
-          <div className="ml-2">ZK-Paw</div>
+          <div className="ml-2">TrustTail</div>
         </div>
       </Link>
       <div className="text-base">Hi Michael</div>
+      {/* <div className="text-base">Hi Michael</div> */}
     </div>
   );
 };

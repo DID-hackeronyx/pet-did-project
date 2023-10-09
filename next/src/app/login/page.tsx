@@ -19,7 +19,7 @@ const Login = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/user?token=${id}`
       );
-      console.log( response.data.ok ) ;
+      console.log(response.data.ok);
 
       if (response.data.ok) {
         setAccount(response.data.user);
@@ -53,7 +53,7 @@ const Login = () => {
           <div className="flex flex-col justify-center items-center">
             <div className="flex mb-4">
               <Image src={img} width={40} height={20} alt="home page img" />
-              <div className="text-4xl pl-2">ZK-PAW</div>
+              <div className="text-4xl pl-2">TrustTail</div>
             </div>
             <Image src={img1} width={140} height={60} alt="home page img" />
           </div>
